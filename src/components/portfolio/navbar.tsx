@@ -20,15 +20,25 @@ export function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const go = (id: string) => {
     setOpen(false);
+
     const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    el?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
@@ -38,14 +48,7 @@ export function Navbar() {
         scrolled ? "glass-strong py-2" : "py-4"
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <button
-          onClick={() => go("home")}
-          className="font-display text-lg font-bold tracking-tight"
-        >
-          <span className="text-gradient">Mohamed Aslam</span>
-          <span className="text-foreground">.</span>
-        </button>
+      <nav className="mx-auto flex max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8 relative">
 
         <ul className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
@@ -60,10 +63,13 @@ export function Navbar() {
                 )}
               >
                 {l.label}
+
                 <span
                   className={cn(
                     "absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-gradient-primary transition-all duration-300",
-                    active === l.id ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                    active === l.id
+                      ? "opacity-100 scale-x-100"
+                      : "opacity-0 scale-x-0"
                   )}
                 />
               </button>
@@ -72,18 +78,15 @@ export function Navbar() {
         </ul>
 
         <button
-          onClick={() => go("contact")}
-          className="hidden lg:inline-flex items-center rounded-full bg-gradient-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-105"
-        >
-          Hire Me
-        </button>
-
-        <button
           aria-label="Toggle menu"
-          className="lg:hidden p-2 text-foreground"
+          className="lg:hidden absolute right-4 sm:right-6 text-foreground"
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          {open ? (
+            <X className="size-6" />
+          ) : (
+            <Menu className="size-6" />
+          )}
         </button>
       </nav>
 
@@ -105,14 +108,6 @@ export function Navbar() {
                 </button>
               </li>
             ))}
-            <li className="pt-2">
-              <button
-                onClick={() => go("contact")}
-                className="w-full rounded-full bg-gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
-              >
-                Hire Me
-              </button>
-            </li>
           </ul>
         </div>
       )}
